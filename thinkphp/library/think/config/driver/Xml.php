@@ -9,21 +9,23 @@
 // | Author: liu21st <liu21st@gmail.com>
 // +----------------------------------------------------------------------
 
-use think\Route;
+namespace think\config\driver;
 
-Route::get(':version/user/:id',':version.User/read');
-Route::get(':version/book/:id',':version.Book/read');
-Route::post(':version/book/enter',':version.Book/create');
-Route::get(':version/login',':version.Login/login');
-
-
-return [
-    '__pattern__' => [
-        'name' => '\w+',
-    ],
-    '[hello]'     => [
-        ':id'   => ['index/hello', ['method' => 'get'], ['id' => '\d+']],
-        ':name' => ['index/hello', ['method' => 'post']],
-    ],
-
-];
+class Xml
+{
+    public function parse($config)
+    {
+        if (is_file($config)) {
+            $content = simplexml_load_file($config);
+        } else {
+            $content = simplexml_load_string($config);
+        }
+        $result = (array) $content;
+        foreach ($result as $key => $val) {
+            if (is_object($val)) {
+                $result[$key] = (array) $val;
+            }
+        }
+        return $result;
+    }
+}

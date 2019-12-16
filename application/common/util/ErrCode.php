@@ -23,4 +23,5 @@ class ErrCode
 
     //数据库
     const DB_QUERY_ERROR = 30001;
+    const DB_INSERT_ERROR = 30002;
 }

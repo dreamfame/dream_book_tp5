@@ -38,14 +38,19 @@ class BaseController extends Rest implements IBase
     public function __construct()
     {
         $this->request = Request::instance();
-        $result = $this->auth($this->request);
-        if(!$result){
-            self::$ret_code = ErrCode::API_UNAUTH_ERROR;
-            self::$ret_msg = ErrMsg::GetMsgByCode(ErrCode::API_UNAUTH_ERROR);
-            self::ReturnDataHandler();
+        if($this->request->controller()=="V1.Book"){
+            $this->_initialize();
         }
         else{
-            $this->_initialize();
+            $result = $this->auth($this->request);
+            if(!$result){
+                self::$ret_code = ErrCode::API_UNAUTH_ERROR;
+                self::$ret_msg = ErrMsg::GetMsgByCode(ErrCode::API_UNAUTH_ERROR);
+                self::ReturnDataHandler();
+            }
+            else{
+                $this->_initialize();
+            }
         }
     }
 

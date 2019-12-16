@@ -9,21 +9,11 @@
 // | Author: liu21st <liu21st@gmail.com>
 // +----------------------------------------------------------------------
 
-use think\Route;
+namespace think;
 
-Route::get(':version/user/:id',':version.User/read');
-Route::get(':version/book/:id',':version.Book/read');
-Route::post(':version/book/enter',':version.Book/create');
-Route::get(':version/login',':version.Login/login');
+// ThinkPHP 引导文件
+// 1. 加载基础文件
+require __DIR__ . '/base.php';
 
-
-return [
-    '__pattern__' => [
-        'name' => '\w+',
-    ],
-    '[hello]'     => [
-        ':id'   => ['index/hello', ['method' => 'get'], ['id' => '\d+']],
-        ':name' => ['index/hello', ['method' => 'post']],
-    ],
-
-];
+// 2. 执行应用
+App::run()->send();

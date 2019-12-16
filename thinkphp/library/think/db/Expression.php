@@ -9,21 +9,40 @@
 // | Author: liu21st <liu21st@gmail.com>
 // +----------------------------------------------------------------------
 
-use think\Route;
+namespace think\db;
 
-Route::get(':version/user/:id',':version.User/read');
-Route::get(':version/book/:id',':version.Book/read');
-Route::post(':version/book/enter',':version.Book/create');
-Route::get(':version/login',':version.Login/login');
+class Expression
+{
+    /**
+     * 查询表达式
+     *
+     * @var string
+     */
+    protected $value;
 
+    /**
+     * 创建一个查询表达式
+     *
+     * @param  string  $value
+     * @return void
+     */
+    public function __construct($value)
+    {
+        $this->value = $value;
+    }
 
-return [
-    '__pattern__' => [
-        'name' => '\w+',
-    ],
-    '[hello]'     => [
-        ':id'   => ['index/hello', ['method' => 'get'], ['id' => '\d+']],
-        ':name' => ['index/hello', ['method' => 'post']],
-    ],
+    /**
+     * 获取表达式
+     *
+     * @return string
+     */
+    public function getValue()
+    {
+        return $this->value;
+    }
 
-];
+    public function __toString()
+    {
+        return (string) $this->value;
+    }
+}

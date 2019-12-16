@@ -18,6 +18,7 @@ class ErrMsg
             case 10001:$msg="用户被禁用";break;
             case 20001:$msg="请求参数有误";break;
             case 30001:$msg="数据库查询错误";break;
+            case 30002:$msg="数据库插入错误";break;
             case 401:$msg = "接口未授权";break;
         }
         $msg = isset($extra)?$msg."：".$extra:$msg;
